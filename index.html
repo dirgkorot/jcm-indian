@@ -3,141 +3,128 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JCM INDIAN - India's Own Search Engine</title>
+<title>JCM Indian Search</title>
 <style>
-body{font-family:Arial;text-align:center;margin:0;padding:0;background:#fff}
-.top{padding:15px;text-align:right}
-select{padding:8px;border-radius:20px;border:1px solid #ccc}
-.logo{font-size:55px;font-weight:900;margin-top:70px;color:#1a365d}
-.logo span{color:#ff6b00}.logo b{color:#0a9e4a}
-.tag{color:#555;font-size:18px;margin-bottom:30px}
-.search{width:90%;max-width:600px;margin:auto;display:flex;border:1px solid #ccc;border-radius:50px;padding:8px 8px 8px 20px;box-shadow:0 2px 10px #ddd}
-.search input{flex:1;border:none;outline:none;font-size:18px}
-.search button{background:#1a56db;color:white;border:none;padding:12px 25px;border-radius:50px;font-size:16px;cursor:pointer}
-.btns{margin-top:25px}
-.btns button{padding:10px 20px;border-radius:20px;border:1px solid #ddd;background:#f8f8f8;margin:5px}
-.footer{position:fixed;bottom:0;width:100%;background:#f2f2f2;padding:12px;color:#555}
+body{font-family:Arial,sans-serif;text-align:center;padding:20px;transition:0.3s}
+body.incognito{background:#202124 !important;color:white !important}
+input{width:80%;max-width:400px;padding:12px;font-size:16px;border-radius:25px;border:1px solid #ccc;outline:none}
+button{padding:10px 18px;margin:8px 5px;font-size:15px;border:none;border-radius:20px;cursor:pointer;background:#4285f4;color:white}
+button.closeBtn{background:#ea4335}
+select{padding:8px;border-radius:10px;margin:10px}
+.top{display:flex;justify-content:space-between;align-items:center}
 </style>
 </head>
 <body>
+
 <div class="top">
-  <button onclick="openIncognito()" style="background:#202124;color:white;padding:8px 14px;border-radius:20px;border:none;cursor:pointer;">🕶️ New Incognito Tab</button>
+<h2 id="logo">🔍 JCM Indian</h2>
 <select id="lang" onchange="changeLang()">
-  <button onclick="closeIncognito()">❌ Close Incognito</button>
 <option value="en">English</option>
-<option value="hi">Hindi - हिन्दी</option>
-<option value="gu">Gujarati - ગુજરાતી</option>
-<option value="mr">Marathi - मराठी</option>
-<option value="bn">Bengali - বাংলা</option>
-<option value="te">Telugu - తెలుగు</option>
-<option value="ta">Tamil - தமிழ்</option>
-<option value="kn">Kannada - ಕನ್ನಡ</option>
-<option value="ml">Malayalam - മലയാളം</option>
-<option value="pa">Punjabi - ਪੰਜਾਬੀ</option>
-<option value="ur">Urdu - اردو</option>
-<option value="or">Odia - ଓଡ଼ିଆ</option>
-<option value="as">Assamese - অসমীয়া</option>
-<option value="mai">Maithili - मैथिली</option>
-<option value="sat">Santali - ᱥᱟᱱᱛᱟᱲᱤ</option>
-<option value="ks">Kashmiri - कश्मीरी</option>
-<option value="ne">Nepali - नेपाली</option>
-<option value="kok">Konkani - कोंकणी</option>
-<option value="sd">Sindhi - सिन्धी</option>
-<option value="doi">Dogri - डोगरी</option>
-<option value="mni">Manipuri - মণিপুরী</option>
-<option value="sa">Sanskrit - संस्कृतम्</option>
+<option value="as">অসমীয়া</option>
+<option value="bn">বাংলা</option>
+<option value="brx">बोड़ो</option>
+<option value="doi">डोगरी</option>
+<option value="gu">ગુજરાતી</option>
+<option value="hi">हिन्दी</option>
+<option value="kn">ಕನ್ನಡ</option>
+<option value="ks">کٲشُر</option>
+<option value="gom">कोंकणी</option>
+<option value="mai">मैथिली</option>
+<option value="ml">മലയാളം</option>
+<option value="mni">মণিপুরী</option>
+<option value="mr">मराठी</option>
+<option value="ne">नेपाली</option>
+<option value="or">ଓଡ଼ିଆ</option>
+<option value="pa">ਪੰਜਾਬੀ</option>
+<option value="sa">संस्कृतम्</option>
+<option value="sat">ᱥᱟᱱᱛᱟᱲᱤ</option>
+<option value="sd">سنڌي</option>
+<option value="ta">தமிழ்</option>
+<option value="te">తెలుగు</option>
+<option value="ur">اردو</option>
 </select>
 </div>
-<div class="logo">JCM <span>IN</span><b>D</b><span>I</span><b>A</b>N</div>
-<p class="tag" id="tagline">India's Own Search Engine</p>
-<form class="search" onsubmit="doSearch(event)">
-<input id="q" type="text" placeholder="Search the web in your language...">
-<button type="submit">Search</button>
-</form>
-<div class="btns">
-<button onclick="alert('JCM INDIAN - Made in India')">I'm Feeling Lucky</button>
-<button onclick="window.open('https://news.google.com','_blank')">News</button>
-</div>
-<p style="margin-top:40px;color:#888">Made in India 🇮🇳 | JCM INDIAN</p>
-<div class="footer">India | About | Privacy | Terms | Help</div>
+
+<h1 id="title">Search in Your Language</h1>
+<input id="searchBox" placeholder="Search...">
+<br>
+<button id="searchBtn" onclick="doSearch()">Search</button>
+<button id="openBtn" onclick="openIncognito()">🕶️ New Incognito Tab</button>
+<button id="closeBtn" class="closeBtn" onclick="closeIncognito()" style="display:none">❌ Close Incognito</button>
+<p id="status"></p>
+
 <script>
-function doSearch(e){
-e.preventDefault();
-let query=document.getElementById('q').value;
-if(!query) return;
-let lang=document.getElementById('lang').value;
-window.open('https://www.google.com/search?q='+encodeURIComponent(query)+'&hl='+lang,'_blank');
- 
-}
-  function openIncognito(){
-  document.body.style.background = "#202124";
-  document.body.style.color = "white";
-let lang = document.getElementById('lang').value;
-let allMsg = {
-'en': "Incognito Mode ON - Your search history will not be saved",
-'as': "ইনকগনিটো মোড অন আছে - এতিয়াৰ পৰা আপোনাৰ সন্ধান ইতিহাস সংৰক্ষণ কৰা নহ'ব",
-'bn': "ইনকগনিটো মোড চালু আছে - এখন থেকে আপনার অনুসন্ধানের ইতিহাস সংরক্ষণ করা হবে না",
-'brx': "Incognito Mode ON जादों - बेिफोरनिफ्राय साननाय जारिमिन थि जमा जायो",
-'doi': "इन्कॉग्निटो मोड चालू ऐ - हुण तुहाडी खोज हिस्ट्री सेव नहीं होग",
-'gu': "ઇન્કોગ્નિટો મોડ ચાલુ છે - હવે તમારી સર્ચ હિસ્ટ્રી સેવ થશે નહીં",
-'hi': "इन्कॉग्निटो मोड चालू है - अब आपकी सर्च हिस्ट्री सेव नहीं होगी",
-'kn': "ಇನ್‌ಕಾಗ್ನಿಟೋ ಮೋಡ್ ಆನ್ ಆಗಿದೆ - ಇನ್ನು ಮುಂದೆ ನಿಮ್ಮ ಹುಡುಕಾಟ ಇತಿಹಾಸವನ್ನು ಉಳಿಸಲಾಗುವುದಿಲ್ಲ",
-'ks': "Incognito Mode چالو چھُ - وۄن تۄہُنٛد تلاش تٲریٖخ محفوٗظ نہ کرنہٕ یی",
-'gom': "Incognito Mode चालू आसा - आतां तुमची सोद इतिहास सांबाळून दवरची ना",
-'mai': "इन्कॉग्निटो मोड चालू अछि - आब अहाँक खोज इतिहास सेव नहि होएत",
-'ml': "ഇൻകോഗ്നിറ്റോ മോഡ് ഓണാണ് - ഇനി നിങ്ങളുടെ തിരയൽ ചരിത്രം സേവ് ചെയ്യപ്പെടില്ല",
-'mni': "Incognito Mode ON লৈরে - হৌজিক তুমগী থিজিনবগী ইতিহাস সেভ তৌরোই",
-'mr': "इन्कॉग्निटो मोड चालू आहे - आता तुमची सर्च हिस्ट्री सेव होणार नाही",
-'ne': "इन्कोग्निटो मोड अन छ - अब तपाईंको खोज इतिहास सेभ हुने छैन",
-'or': "ଇନକଗନିଟୋ ମୋଡ୍ ଅନ୍ ଅଛି - ଏବେ ଆପଣଙ୍କ ସର୍ଚ୍ଚ ହିଷ୍ଟ୍ରି ସେଭ୍ ହେବ ନାହିଁ",
-'pa': "ਇਨਕਾਗਨਿਟੋ ਮੋਡ ਚਾਲੂ ਹੈ - ਹੁਣ ਤੁਹਾਡੀ ਖੋਜ ਹਿਸਟਰੀ ਸੇਵ ਨਹੀਂ ਹੋਵੇਗੀ",
-'sa': "इन्कॉग्निटो मोडः चालू अस्ति - अधुना भवतः अन्वेषण-इतिहासः न रक्षितः भविष्यति",
-'sat': "Incognito Mode ON ᱠᱟᱱᱟ - ᱱᱤᱛᱚᱜ ᱠᱷᱚᱱ ᱟᱢᱟᱜ ᱥᱮᱸᱫᱽᱨᱟ ᱱᱟᱜᱟᱢ ᱫᱚ ᱵᱟᱝ ᱥᱟᱺᱪᱟᱣ ᱦᱩᱭᱩᱜᱼᱟ",
-'sd': "انڪوگنيٽو موڊ آن آهي - هاڻي توهان جي ڳولا جي تاريخ محفوظ نه ٿيندي",
-'ta': "மறைநிலை பயன்முறை இயக்கத்தில் உள்ளது - இனி உங்கள் தேடல் வரலாறு சேமிக்கப்படாது",
-'te': "ఇంకాగ్నిటో మోడ్ ఆన్‌లో ఉంది - ఇకపై మీ శోధన చరిత್ರ సేవ్ చేయబడదు",
-'ur': "انکوگنیٹو موڈ آن ہے - اب آپ کی سرچ ہسٹری محفوظ نہیں ہوگی"
+let T = {
+'en':{title:"Search in Your Language",ph:"Search...",search:"Search",open:"🕶️ New Incognito Tab",close:"❌ Close Incognito",on:"Incognito Mode ON - Your search history will not be saved",off:"Incognito Mode OFF - Now your search history will be saved",onStatus:"Incognito Mode is ON"},
+'as':{title:"তোমাৰ ভাষাত সন্ধান কৰা",ph:"সন্ধান কৰক...",search:"সন্ধান",open:"🕶️ নতুন ইনকগনিটো টেব",close:"❌ ইনকগনিটো বন্ধ কৰক",on:"ইনকগনিটো মোড অন আছে - এতিয়াৰ পৰা আপোনাৰ সন্ধান ইতিহাস সংৰক্ষণ কৰা নহ'ব",off:"ইনকগনিটো মোড অফ হৈছে - এতিয়াৰ পৰা আপোনাৰ সন্ধান ইতিহাস সংৰক্ষণ কৰা হ'ব",onStatus:"ইনকগনিটো মোড অন আছে"},
+'bn':{title:"আপনার ভাষায় অনুসন্ধান করুন",ph:"অনুসন্ধান করুন...",search:"অনুসন্ধান",open:"🕶️ নতুন ইনকগনিটো ট্যাব",close:"❌ ইনকগনিটো বন্ধ করুন",on:"ইনকগনিটো মোড চালু আছে - এখন থেকে আপনার অনুসন্ধানের ইতিহাস সংরক্ষণ করা হবে না",off:"ইনকগনিটো মোড বন্ধ হয়েছে - এখন থেকে আপনার অনুসন্ধানের ইতিহাস সংরক্ষণ করা হবে",onStatus:"ইনকগনিটো মোড চালু আছে"},
+'brx':{title:"नोंथांनि रावजों साननाय",ph:"साननाय...",search:"साननाय",open:"🕶️ गोदान Incognito Tab",close:"❌ Incognito बंद खालाम",on:"Incognito Mode ON जादों - बेिफोरनिफ्राय साननाय जारिमिन थि जमा जायो",off:"Incognito Mode OFF जाबाय - दानिफ्राय नोंथांनि साननाय जारिमिन थि जमा जागोन",onStatus:"Incognito Mode ON"},
+'doi':{title:"अपनी भाषा च खोज करो",ph:"खोज करो...",search:"खोज",open:"🕶️ नमा इन्कॉग्निटो टैब",close:"❌ इन्कॉग्निटो बंद करो",on:"इन्कॉग्निटो मोड चालू ऐ - हुण तुहाडी खोज हिस्ट्री सेव नहीं होग",off:"इन्कॉग्निटो मोड बंद होई गेया - हुण तुहाडी खोज हिस्ट्री सेव होग",onStatus:"इन्कॉग्निटो मोड चालू ऐ"},
+'gu':{title:"તમારી ભાષામાં શોધો",ph:"શોધો...",search:"શોધો",open:"🕶️ નવો ઇન્કોગ્નિટો ટેબ",close:"❌ ઇન્કોગ્નિટો બંધ કરો",on:"ઇન્કોગ્નિટો મોડ ચાલુ છે - હવે તમારી સર્ચ હિસ્ટ્રી સેવ થશે નહીં",off:"ઇન્કોગ્નિટો મોડ બંધ થયો છે - હવે તમારી સર્ચ હિસ્ટ્રી સેવ થશે",onStatus:"ઇન્કોગ્નિટો મોડ ચાલુ છે"},
+'hi':{title:"अपनी भाषा में खोजें",ph:"खोजें...",search:"खोजें",open:"🕶️ नया इन्कॉग्निटो टैब",close:"❌ इन्कॉग्निटो बंद करें",on:"इन्कॉग्निटो मोड चालू है - अब आपकी सर्च हिस्ट्री सेव नहीं होगी",off:"इन्कॉग्निटो मोड बंद हो गया है - अब आपकी सर्च हिस्ट्री सेव होगी",onStatus:"इन्कॉग्निटो मोड चालू है"},
+'kn':{title:"ನಿಮ್ಮ ಭಾಷೆಯಲ್ಲಿ ಹುಡುಕಿ",ph:"ಹುಡುಕಿ...",search:"ಹುಡುಕಿ",open:"🕶️ ಹೊಸ ಇನ್‌ಕಾಗ್ನಿಟೋ ಟ್ಯಾಬ್",close:"❌ ಇನ್‌ಕಾಗ್ನಿಟೋ ಮುಚ್ಚಿ",on:"ಇನ್‌ಕಾಗ್ನಿಟೋ ಮೋಡ್ ಆನ್ ಆಗಿದೆ - ಇನ್ನು ಮುಂದೆ ನಿಮ್ಮ ಹುಡುಕಾಟ ಇತಿಹಾಸವನ್ನು ಉಳಿಸಲಾಗುವುದಿಲ್ಲ",off:"ಇನ್‌ಕಾಗ್ನಿಟೋ ಮೋಡ್ ಆಫ್ ಆಗಿದೆ - ಇನ್ನು ಮುಂದೆ ನಿಮ್ಮ ಹುಡುಕಾಟ ಇತಿಹಾಸವನ್ನು ಉಳಿಸಲಾಗುತ್ತದೆ",onStatus:"ಇನ್‌ಕಾಗ್ನಿಟೋ ಮೋಡ್ ಆನ್ ಆಗಿದೆ"},
+'ks':{title:"پننہِ زبانہِ منٛز تلاش کٔرِو",ph:"تلاش...",search:"تلاش",open:"🕶️ نٔو Incognito ٹیب",close:"❌ Incognito بند کٔرِو",on:"Incognito Mode چالو چھُ - وۄن تۄہُنٛد تلاش تٲریٖخ محفوٗظ نہ کرنہٕ یی",off:"Incognito Mode بند گۆو - وۄن تۄہُنٛد تلاش تٲریٖخ محفوٗظ کرنہٕ یی",onStatus:"Incognito Mode چالو چھُ"},
+'gom':{title:"तुमच्या भाशेंत सोदात",ph:"सोदात...",search:"सोदात",open:"🕶️ नवो Incognito टॅब",close:"❌ Incognito बंद करात",on:"Incognito Mode चालू आसा - आतां तुमची सोद इतिहास सांबाळून दवरची ना",off:"Incognito Mode बंद जालो - आतां तुमची सोद इतिहास सांबाळून दवरतली",onStatus:"Incognito Mode चालू आसा"},
+'mai':{title:"अप्पन भाषा मे खोजू",ph:"खोजू...",search:"खोजू",open:"🕶️ नव इन्कॉग्निटो टैब",close:"❌ इन्कॉग्निटो बंद करू",on:"इन्कॉग्निटो मोड चालू अछि - आब अहाँक खोज इतिहास सेव नहि होएत",off:"इन्कॉग्निटो मोड बंद भ' गेल - आब अहाँक खोज इतिहास सेव होएत",onStatus:"इन्कॉग्निटो मोड चालू अछि"},
+'ml':{title:"നിങ്ങളുടെ ഭാഷയിൽ തിരയുക",ph:"തിരയുക...",search:"തിരയുക",open:"🕶️ പുതിയ ഇൻകോഗ്നിറ്റോ ടാബ്",close:"❌ ഇൻകോഗ്നിറ്റോ അടയ്ക്കുക",on:"ഇൻകോഗ്നിറ്റോ മോഡ് ഓണാണ് - ഇനി നിങ്ങളുടെ തിരയൽ ചരിത്രം സേവ് ചെയ്യപ്പെടില്ല",off:"ഇൻകോഗ്നിറ്റോ മോഡ് ഓഫായി - ഇനി നിങ്ങളുടെ തിരയൽ ചരിത്രം സേവ് ചെയ്യപ്പെടും",onStatus:"ഇൻകോഗ്നിറ്റോ മോഡ് ഓണാണ്"},
+'mni':{title:"নহাক্কী লোলদা থিজিনবা",ph:"থিজিনবা...",search:"থিজিনবা",open:"🕶️ অনৌবা Incognito টেব",close:"❌ Incognito থিংজিনবা",on:"Incognito Mode ON লৈরে - হৌজিক তুমগী থিজিনবগী ইতিহাস সেভ তৌরোই",off:"Incognito Mode OFF ওইরে - হৌজিক তুমগী থিজিনবগী ইতিহাস সেভ তৌরগনি",onStatus:"Incognito Mode ON লৈরে"},
+'mr':{title:"तुमच्या भाषेत शोधा",ph:"शोधा...",search:"शोधा",open:"🕶️ नवीन इन्कॉग्निटो टॅब",close:"❌ इन्कॉग्निटो बंद करा",on:"इन्कॉग्निटो मोड चालू आहे - आता तुमची सर्च हिस्ट्री सेव होणार नाही",off:"इन्कॉग्निटो मोड बंद झाला आहे - आता तुमची सर्च हिस्ट्री सेव होईल",onStatus:"इन्कॉग्निटो मोड चालू आहे"},
+'ne':{title:"तपाईंको भाषामा खोज्नुहोस्",ph:"खोज्नुहोस्...",search:"खोज्नुहोस्",open:"🕶️ नयाँ इन्कोग्निटो ट्याब",close:"❌ इन्कोग्निटो बन्द गर्नुहोस्",on:"इन्कोग्निटो मोड अन छ - अब तपाईंको खोज इतिहास सेभ हुने छैन",off:"इन्कोग्निटो मोड बन्द भयो - अब तपाईंको खोज इतिहास सेभ हुनेछ",onStatus:"इन्कोग्निटो मोड अन छ"},
+'or':{title:"ତୁମ ଭାଷାରେ ଖୋଜ",ph:"ଖୋଜ...",search:"ଖୋଜ",open:"🕶️ ନୂଆ ଇନକଗନିଟୋ ଟ୍ୟାବ୍",close:"❌ ଇନକଗନିଟୋ ବନ୍ଦ କର",on:"ଇନକଗନିଟୋ ମୋଡ୍ ଅନ୍ ଅଛି - ଏବେ ଆପଣଙ୍କ ସର୍ଚ୍ଚ ହିଷ୍ଟ୍ରି ସେଭ୍ ହେବ ନାହିଁ",off:"ଇନକଗନିଟୋ ମୋଡ୍ ବନ୍ଦ ହୋଇଗଲା - ଏବେ ଆପଣଙ୍କ ସର୍ଚ୍ଚ ହିଷ୍ଟ୍ରି ସେଭ୍ ହେବ",onStatus:"ଇନକଗନିଟୋ ମୋଡ୍ ଅନ୍ ଅଛି"},
+'pa':{title:"ਤੁਹਾਡੀ ਭਾਸ਼ਾ ਵਿੱਚ ਖੋਜੋ",ph:"ਖੋਜੋ...",search:"ਖੋਜੋ",open:"🕶️ ਨਵਾਂ ਇਨਕਾਗਨਿਟੋ ਟੈਬ",close:"❌ ਇਨਕਾਗਨਿਟੋ ਬੰਦ ਕਰੋ",on:"ਇਨਕਾਗਨਿਟੋ ਮੋਡ ਚਾਲੂ ਹੈ - ਹੁਣ ਤੁਹਾਡੀ ਖੋਜ ਹਿਸਟਰੀ ਸੇਵ ਨਹੀਂ ਹੋਵੇਗੀ",off:"ਇਨਕਾਗਨਿਟੋ ਮੋਡ ਬੰਦ ਹੋ ਗਿਆ ਹੈ - ਹੁਣ ਤੁਹਾਡੀ ਖੋਜ ਹਿਸਟਰੀ ਸੇਵ ਹੋਵੇਗੀ",onStatus:"ਇਨਕਾਗਨਿਟੋ ਮੋਡ ਚਾਲੂ ਹੈ"},
+'sa':{title:"भवतः भाषायां अन्वेषयतु",ph:"अन्वेषयतु...",search:"अन्वेषयतु",open:"🕶️ नूतन इन्कॉग्निटो टेब",close:"❌ इन्कॉग्निटो बन्दं कुरुत",on:"इन्कॉग्निटो मोडः चालू अस्ति - अधुना भवतः अन्वेषण-इतिहासः न रक्षितः भविष्यति",off:"इन्कॉग्निटो मोडः बन्दः जातः - अधुना भवतः अन्वेषण-इतिहासः रक्षितः भविष्यति",onStatus:"इन्कॉग्निटो मोडः चालू अस्ति"},
+'sat':{title:"ᱟᱢᱟᱜ ᱯᱟᱹᱨᱥᱤ ᱛᱮ ᱥᱮᱸᱫᱽᱨᱟ",ph:"ᱥᱮᱸᱫᱽᱨᱟ...",search:"ᱥᱮᱸᱫᱽᱨᱟ",open:"🕶️ ᱱᱟᱶᱟ Incognito Tab",close:"❌ Incognito ᱵᱚᱸᱫᱽ",on:"Incognito Mode ON ᱠᱟᱱᱟ - ᱱᱤᱛᱚᱜ ᱠᱷᱚᱱ ᱟᱢᱟᱜ ᱥᱮᱸᱫᱽᱨᱟ ᱱᱟᱜᱟᱢ ᱫᱚ ᱵᱟᱝ ᱥᱟᱺᱪᱟᱣ ᱦᱩᱭᱩᱜᱼᱟ",off:"Incognito Mode OFF ᱮᱱᱟ - ᱱᱤᱛᱚᱜ ᱠᱷᱚᱱ ᱟᱢᱟᱜ ᱥᱮᱸᱫᱽᱨᱟ ᱱᱟᱜᱟᱢ ᱫᱚ ᱥᱟᱺᱪᱟᱣ ᱦᱩᱭᱩᱜᱼᱟ",onStatus:"Incognito Mode ON ᱠᱟᱱᱟ"},
+'sd':{title:"پنهنجي ٻولي ۾ ڳولا ڪريو",ph:"ڳولا...",search:"ڳولا",open:"🕶️ نئون انڪوگنيٽو ٽيب",close:"❌ انڪوگنيٽو بند ڪريو",on:"انڪوگنيٽو موڊ آن آهي - هاڻي توهان جي ڳولا جي تاريخ محفوظ نه ٿيندي",off:"انڪوگنيٽو موڊ بند ٿي ويو آهي - هاڻي توهان جي ڳولا جي تاريخ محفوظ ٿيندي",onStatus:"انڪوگنيٽو موڊ آن آهي"},
+'ta':{title:"உங்கள் மொழியில் தேடுங்கள்",ph:"தேடுங்கள்...",search:"தேடுங்கள்",open:"🕶️ புதிய மறைநிலை தாவல்",close:"❌ மறைநிலையை மூடு",on:"மறைநிலை பயன்முறை இயக்கத்தில் உள்ளது - இனி உங்கள் தேடல் வரலாறு சேமிக்கப்படாது",off:"மறைநிலை பயன்முறை அணைக்கப்பட்டது - இனி உங்கள் தேடல் வரலாறு சேமிக்கப்படும்",onStatus:"மறைநிலை பயன்முறை இயக்கத்தில் உள்ளது"},
+'te':{title:"మీ భాషలో వెతకండి",ph:"వెతకండి...",search:"వెతకండి",open:"🕶️ కొత్త ఇంకాగ్నిటో ట్యాబ్",close:"❌ ఇంకాగ్నిటో మూసివేయండి",on:"ఇంకాగ్నిటో మోడ్ ఆన్‌లో ఉంది - ఇకపై మీ శోధన చరిత్ర సేవ్ చేయబడదు",off:"ఇంకాగ్నిటో మోడ్ ఆఫ్ అయింది - ఇకపై మీ శోధన చరిత్ర సేవ్ చేయబడుతుంది",onStatus:"ఇంకాగ్నిటో మోడ్ ఆన్‌లో ఉంది"},
+'ur':{title:"اپنی زبان میں تلاش کریں",ph:"تلاش کریں...",search:"تلاش کریں",open:"🕶️ نیا انکوگنیٹو ٹیب",close:"❌ انکوگنیٹو بند کریں",on:"انکوگنیٹو موڈ آن ہے - اب آپ کی سرچ ہسٹری محفوظ نہیں ہوگی",off:"انکوگنیٹو موڈ بند ہو گیا ہے - اب آپ کی سرچ ہسٹری محفوظ ہوگی",onStatus:"انکوگنیٹو موڈ آن ہے"}
 };
-alert(allMsg[lang] || allMsg['en']);
-  window.open(window.location.href, '_blank');
-}
-  function closeIncognito(){
-  let lang = document.getElementById('lang').value;
-  let offMsg = {
-  'en': "Incognito Mode OFF - Now your search history will be saved",
-  'as': "ইনকগনিটো মোড অফ হৈছে - এতিয়াৰ পৰা আপোনাৰ সন্ধান ইতিহাস সংৰক্ষণ কৰা হ'ব",
-  'bn': "ইনকগনিটো মোড বন্ধ হয়েছে - এখন থেকে আপনার অনুসন্ধানের ইতিহাস সংরক্ষণ করা হবে",
-  'brx': "Incognito Mode OFF जाबाय - दानिफ्राय नोंथांनि साननाय जारिमिन थि जमा जागोन",
-  'doi': "इन्कॉग्निटो मोड बंद होई गेया - हुण तुहाडी खोज हिस्ट्री सेव होग",
-  'gu': "ઇન્કોગ્નિટો મોડ બંધ થયો છે - હવે તમારી સર્ચ હિસ્ટ્રી સેવ થશે",
-  'hi': "इन्कॉग्निटो मोड बंद हो गया है - अब आपकी सर्च हिस्ट्री सेव होगी",
-  'kn': "ಇನ್‌ಕಾಗ್ನಿಟೋ ಮೋಡ್ ಆಫ್ ಆಗಿದೆ - ಇನ್ನು ಮುಂದೆ ನಿಮ್ಮ ಹುಡುಕಾಟ ಇತಿಹಾಸವನ್ನು ಉಳಿಸಲಾಗುತ್ತದೆ",
-  'ks': "Incognito Mode بند گۆو - وۄن تۄہُنٛد تلاش تٲریٖخ محفوٗظ کرنہٕ یی",
-  'gom': "Incognito Mode बंद जालो - आतां तुमची सोद इतिहास सांबाळून दवरतली",
-  'mai': "इन्कॉग्निटो मोड बंद भ' गेल - आब अहाँक खोज इतिहास सेव होएत",
-  'ml': "ഇൻകോഗ്നിറ്റോ മോഡ് ഓഫായി - ഇനി നിങ്ങളുടെ തിരയൽ ചരിത്രം സേവ് ചെയ്യപ്പെടും",
-  'mni': "Incognito Mode OFF ওইরে - হৌজিক তুমগী থিজিনবগী ইতিহাস সেভ তৌরগনি",
-  'mr': "इन्कॉग्निटो मोड बंद झाला आहे - आता तुमची सर्च हिस्ट्री सेव होईल",
-  'ne': "इन्कोग्निटो मोड बन्द भयो - अब तपाईंको खोज इतिहास सेभ हुनेछ",
-  'or': "ଇନକଗନିଟୋ ମୋଡ୍ ବନ୍ଦ ହୋଇଗଲା - ଏବେ ଆପଣଙ୍କ ସର୍ଚ୍ଚ ହିଷ୍ଟ୍ରି ସେଭ୍ ହେବ",
-  'pa': "ਇਨਕਾਗਨਿਟੋ ਮੋਡ ਬੰਦ ਹੋ ਗਿਆ ਹੈ - ਹੁਣ ਤੁਹਾਡੀ ਖੋਜ ਹਿਸਟਰੀ ਸੇਵ ਹੋਵੇਗੀ",
-  'sa': "इन्कॉग्निटो मोडः बन्दः जातः - अधुना भवतः अन्वेषण-इतिहासः रक्षितः भविष्यति",
-  'sat': "Incognito Mode OFF ᱮᱱᱟ - ᱱᱤᱛᱚᱜ ᱠᱷᱚᱱ ᱟᱢᱟᱜ ᱥᱮᱸᱫᱽᱨᱟ ᱱᱟᱜᱟᱢ ᱫᱚ ᱥᱟᱺᱪᱟᱣ ᱦᱩᱭᱩᱜᱼᱟ",
-  'sd': "انڪوگنيٽو موڊ بند ٿي ويو آهي - هاڻي توهان جي ڳولا جي تاريخ محفوظ ٿيندي",
-  'ta': "மறைநிலை பயன்முறை அணைக்கப்பட்டது - இனி உங்கள் தேடல் வரலாறு சேமிக்கப்படும்",
-  'te': "ఇంకాగ్నిటో మోడ్ ఆఫ్ అయింది - ఇకపై మీ శోధన చరిత్ర సేవ్ చేయబడుతుంది",
-  'ur': "انکوگنیٹو موڈ بند ہو گیا ہے - اب آپ کی سرچ ہسٹری محفوظ ہوگی"
-  };
-  alert(offMsg[lang] || offMsg['en']);
-  window.close();
-}
+
+function getLang(){ return document.getElementById('lang').value; }
 function changeLang(){
-let l=document.getElementById('lang').value;
-let t=document.getElementById('tagline');
-if(l=='gu') t.innerText='Bharat nu Potanu Search Engine';
-else if(l=='hi') t.innerText='Bharat ka Apna Search Engine';
-else t.innerText="India's Own Search Engine";
+  let l = getLang(); let t = T[l] || T['en'];
+  document.getElementById('title').innerText = t.title;
+  document.getElementById('searchBox').placeholder = t.ph;
+  document.getElementById('searchBtn').innerText = t.search;
+  document.getElementById('openBtn').innerText = t.open;
+  document.getElementById('closeBtn').innerText = t.close;
+  if(window.location.search.includes('incognito=1')){
+    document.getElementById('status').innerText = t.onStatus;
+  }
 }
+function doSearch(){
+  let q = document.getElementById('searchBox').value;
+  if(q) window.open('https://www.google.com/search?q='+encodeURIComponent(q),'_blank');
+}
+function openIncognito(){
+  let l = getLang(); let t = T[l] || T['en'];
+  alert(t.on);
+  let base = window.location.href.split('?')[0];
+  window.open(base + '?incognito=1&lang=' + l, '_blank');
+}
+function closeIncognito(){
+  let l = getLang(); let t = T[l] || T['en'];
+  alert(t.off);
+  window.close();
+  // Jo browser close na thava de to juna page par lai jao
+  setTimeout(function(){ window.location.href = window.location.href.split('?')[0]; }, 500);
+}
+// Page khule tyare check
+window.onload = function(){
+  let params = new URLSearchParams(window.location.search);
+  if(params.get('incognito')=='1'){
+    document.body.classList.add('incognito');
+    document.getElementById('openBtn').style.display='none';
+    document.getElementById('closeBtn').style.display='inline-block';
+    if(params.get('lang')){
+      document.getElementById('lang').value = params.get('lang');
+    }
+  } else {
+    document.getElementById('closeBtn').style.display='none';
+    document.getElementById('openBtn').style.display='inline-block';
+  }
+  changeLang();
+};
 </script>
 </body>
 </html>
