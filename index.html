@@ -5,15 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JCM Indian Search</title>
 <style>
-body{background:#000 !important;color:white !important;font-family:Arial,sans-serif;text-align:center;padding:20px}
-body.incognito{background:#202124 !important}
-input{width:80%;max-width:400px;padding:12px;font-size:16px;border-radius:25px;border:1px solid #555;outline:none;background:#222;color:white}
-button{padding:10px 16px;margin:8px 4px;font-size:15px;border:none;border-radius:20px;cursor:pointer;background:#4285f4;color:white}
-button.closeBtn{background:#ea4335}
-button.iconBtn{background:#333;font-size:18px}
-select{padding:8px;border-radius:10px;margin:10px;background:#222;color:white}
+/* MARI RITE MAST BACKGROUND */
+body{
+  min-height:100vh;margin:0;padding:20px;font-family:Arial,sans-serif;text-align:center;color:#fff;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 70%, #533483 100%);
+  background-attachment:fixed;
+}
+body.incognito{
+  background: linear-gradient(135deg, #000000 0%, #232526 50%, #414345 100%) !important;
+}
+.card{background:rgba(255,255,255,0.12);backdrop-filter:blur(10px);border-radius:20px;padding:25px;max-width:520px;margin:30px auto;box-shadow:0 10px 30px rgba(0,0,0,0.4)}
+input{width:75%;max-width:350px;padding:13px;font-size:16px;border-radius:25px;border:none;outline:none}
+button{padding:11px 18px;margin:8px 4px;font-size:15px;border:none;border-radius:20px;cursor:pointer;background:#fff;color:#111;font-weight:bold}
+button.closeBtn{background:#ff3b30;color:white}
+button.iconBtn{background:#ffcc00;font-size:18px}
+select{padding:8px;border-radius:10px;background:white}
 .top{display:flex;justify-content:space-between;align-items:center}
-#preview{max-width:300px;margin-top:10px;border-radius:10px;display:none}
+#preview{max-width:280px;margin-top:12px;border-radius:12px;display:none}
+#voiceCam{display:none}
 </style>
 </head>
 <body>
@@ -25,19 +34,26 @@ select{padding:8px;border-radius:10px;margin:10px;background:#222;color:white}
 </select>
 </div>
 
+<div class="card">
 <h1 id="title">Search in Your Language</h1>
-
 <input id="searchBox" placeholder="Search...">
-<button class="iconBtn" onclick="startVoice()" title="Voice">🎤</button>
-<button class="iconBtn" onclick="document.getElementById('cam').click()" title="Camera">📷</button>
+
+<!-- CAMERA ANE MIC - FAKT INCOGNITO MA DEKHASE -->
+<div id="voiceCam">
+<button class="iconBtn" onclick="startVoice()">🎤</button>
+<button class="iconBtn" onclick="document.getElementById('cam').click()">📷</button>
 <input type="file" id="cam" accept="image/*" capture="environment" style="display:none" onchange="showImage(event)">
-<br>
-<img id="preview">
+<br><img id="preview">
+</div>
+
 <br>
 <button id="searchBtn" onclick="doSearch()">Search</button>
+<br>
 <button id="openBtn" onclick="openIncognito()">🕶️ New Incognito Tab</button>
 <button id="closeBtn" class="closeBtn" onclick="closeIncognito()" style="display:none">❌ Close Incognito</button>
 <p id="status"></p>
+<p id="incognitoNote" style="display:none;font-size:13px;opacity:0.8">🔒 Incognito ma Camera ane Voice chalu che</p>
+</div>
 
 <script>
 let T = {
@@ -89,30 +105,24 @@ function closeIncognito(){
   window.close();
   setTimeout(function(){window.location.href=window.location.href.split('?')[0]},500);
 }
-// 🎤 Boline puchva - Voice
 function startVoice(){
   let t=T[getLang()]||T['en'];
   let SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if(!SR){ alert("Voice not supported in this browser"); return; }
+  if(!SR){ alert("Voice not supported"); return; }
   let rec = new SR();
   let langMap = {'gu':'gu-IN','hi':'hi-IN','en':'en-IN','mr':'mr-IN','ta':'ta-IN','te':'te-IN','bn':'bn-IN','pa':'pa-IN','ml':'ml-IN','kn':'kn-IN','or':'or-IN','as':'as-IN','ur':'ur-IN','ne':'ne-NP'};
   rec.lang = langMap[getLang()] || 'en-IN';
   document.getElementById('status').innerText = t.listening;
   rec.start();
   rec.onresult = function(e){
-    let txt = e.results[0][0].transcript;
-    document.getElementById('searchBox').value = txt;
+    document.getElementById('searchBox').value = e.results[0][0].transcript;
     doSearch();
   };
 }
-// 📷 Camera
 function showImage(e){
-  let file = e.target.files[0];
-  if(!file) return;
+  let file = e.target.files[0]; if(!file) return;
   let img = document.getElementById('preview');
-  img.src = URL.createObjectURL(file);
-  img.style.display='block';
-  // Google Lens ma kholva
+  img.src = URL.createObjectURL(file); img.style.display='block';
   if(confirm("Photo ne Google Lens ma kholvu che?")) window.open('https://lens.google.com/','_blank');
 }
 window.onload=function(){
@@ -121,7 +131,14 @@ window.onload=function(){
     document.body.classList.add('incognito');
     document.getElementById('openBtn').style.display='none';
     document.getElementById('closeBtn').style.display='inline-block';
+    document.getElementById('voiceCam').style.display='block';
+    document.getElementById('incognitoNote').style.display='block';
     if(p.get('lang')) document.getElementById('lang').value=p.get('lang');
+  } else {
+    document.getElementById('closeBtn').style.display='none';
+    document.getElementById('openBtn').style.display='inline-block';
+    document.getElementById('voiceCam').style.display='none';
+    document.getElementById('incognitoNote').style.display='none';
   }
   changeLang();
 };
