@@ -21,6 +21,7 @@ select{padding:8px;border-radius:20px;border:1px solid #ccc}
 </head>
 <body>
 <div class="top">
+  <button onclick="openIncognito()" style="background:#202124;color:white;padding:8px 14px;border-radius:20px;border:none;cursor:pointer;">🕶️ New Incognito Tab</button>
 <select id="lang" onchange="changeLang()">
 <option value="en">English</option>
 <option value="hi">Hindi - हिन्दी</option>
@@ -65,6 +66,13 @@ let query=document.getElementById('q').value;
 if(!query) return;
 let lang=document.getElementById('lang').value;
 window.open('https://www.google.com/search?q='+encodeURIComponent(query)+'&hl='+lang,'_blank');
+ 
+}
+  function openIncognito(){
+  document.body.style.background = "#202124";
+  document.body.style.color = "white";
+  alert("Incognito Mode ON - Have tamari search history save nahi thase");
+  window.open(window.location.href, '_blank');
 }
 function changeLang(){
 let l=document.getElementById('lang').value;
