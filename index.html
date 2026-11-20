@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JCM Indian Search</title>
 <style>
-/* MARI RITE MAST BACKGROUND */
 body{
   min-height:100vh;margin:0;padding:20px;font-family:Arial,sans-serif;text-align:center;color:#fff;
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 70%, #533483 100%);
@@ -22,7 +21,7 @@ button.iconBtn{background:#ffcc00;font-size:18px}
 select{padding:8px;border-radius:10px;background:white}
 .top{display:flex;justify-content:space-between;align-items:center}
 #preview{max-width:280px;margin-top:12px;border-radius:12px;display:none}
-#voiceCam{display:biock}
+#voiceCam{display:block}
 </style>
 </head>
 <body>
@@ -38,11 +37,11 @@ select{padding:8px;border-radius:10px;background:white}
 <h1 id="title">Search in Your Language</h1>
 <input id="searchBox" placeholder="Search...">
 
-<!-- CAMERA ANE MIC - FAKT INCOGNITO MA DEKHASE -->
+<!-- MIC ANE CAMERA - HAVE BANNE JAGYA E AVSE -->
 <div id="voiceCam">
 <button class="iconBtn" onclick="startVoice()">🎤</button>
 <button class="iconBtn" onclick="document.getElementById('cam').click()">📷</button>
-<input type="file" id="cam" accept="image/*" capture="environment" style="display:biock" onchange="showImage(event)">
+<input type="file" id="cam" accept="image/*" capture="environment" style="display:none" onchange="showImage(event)">
 <br><img id="preview">
 </div>
 
@@ -52,7 +51,7 @@ select{padding:8px;border-radius:10px;background:white}
 <button id="openBtn" onclick="openIncognito()">🕶️ New Incognito Tab</button>
 <button id="closeBtn" class="closeBtn" onclick="closeIncognito()" style="display:none">❌ Close Incognito</button>
 <p id="status"></p>
-<p id="incognitoNote" style="display:none;font-size:13px;opacity:0.8">🔒 Incognito ma Camera ane Voice chalu che</p>
+<p id="incognitoNote" style="display:none;font-size:13px;opacity:0.8">🔒 Incognito Mode ON che</p>
 </div>
 
 <script>
@@ -127,17 +126,17 @@ function showImage(e){
 }
 window.onload=function(){
   let p=new URLSearchParams(window.location.search);
+  // Mic ane Camera have hamesha dekhase - banne mode ma
+  document.getElementById('voiceCam').style.display='block';
   if(p.get('incognito')=='1'){
     document.body.classList.add('incognito');
     document.getElementById('openBtn').style.display='none';
     document.getElementById('closeBtn').style.display='inline-block';
-    document.getElementById('voiceCam').style.display='block';
     document.getElementById('incognitoNote').style.display='block';
     if(p.get('lang')) document.getElementById('lang').value=p.get('lang');
   } else {
     document.getElementById('closeBtn').style.display='none';
     document.getElementById('openBtn').style.display='inline-block';
-    document.getElementById('voiceCam').style.display='none';
     document.getElementById('incognitoNote').style.display='none';
   }
   changeLang();
