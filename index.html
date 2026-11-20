@@ -22,6 +22,10 @@ select{padding:8px;border-radius:10px;background:white}
 #historyBox{background:rgba(0,0,0,0.4);border-radius:15px;padding:15px;margin-top:15px;text-align:left;display:none}
 .histItem{display:flex;justify-content:space-between;background:rgba(255,255,255,0.15);padding:8px 12px;border-radius:10px;margin:5px 0;cursor:pointer}
 .histItem span.del{color:#ff5252;font-weight:bold}
+/* RESULT - HAVE SITE MA J DEKHASE */
+#resultBox{display:none;max-width:900px;margin:20px auto;background:white;border-radius:15px;overflow:hidden}
+#resultFrame{width:100%;height:70vh;border:none}
+#backBtn{background:#ffcc00;color:#111}
 </style>
 </head>
 <body>
@@ -32,7 +36,7 @@ select{padding:8px;border-radius:10px;background:white}
 </select>
 </div>
 
-<div class="card">
+<div class="card" id="mainCard">
 <h1 id="title">Search in Your Language</h1>
 <input id="searchBox" placeholder="Search...">
 <div id="voiceCam">
@@ -49,8 +53,6 @@ select{padding:8px;border-radius:10px;background:white}
 <button id="closeBtn" class="closeBtn" onclick="closeIncognito()" style="display:none">❌ Close Incognito</button>
 <p id="status"></p>
 <p id="incognitoNote" style="display:none;font-size:13px;opacity:0.8">🔒 Incognito Mode ON che</p>
-
-<!-- HISTORY BOX -->
 <div id="historyBox">
 <h3 id="histTitle" style="margin:0">🕒 Your History</h3>
 <div id="histList"></div>
@@ -58,12 +60,21 @@ select{padding:8px;border-radius:10px;background:white}
 </div>
 </div>
 
+<!-- HAVE RESULT AHIYA J AVSE - GOOGLE MA NAI JAY -->
+<div id="resultBox">
+<div style="padding:10px;background:#f1f1f1;display:flex;justify-content:space-between;align-items:center">
+<span id="resultText" style="color:#111;font-weight:bold">Results</span>
+<button id="backBtn" onclick="goBack()">⬅ Back</button>
+</div>
+<iframe id="resultFrame" src=""></iframe>
+</div>
+
 <script>
 let T = {
-'en':{title:"Search in Your Language",ph:"Search...",search:"Search",open:"🕶️ New Incognito Tab",close:"❌ Close Incognito",on:"Incognito Mode ON - Your search history will not be saved",off:"Incognito Mode OFF - Now your search history will be saved",onStatus:"Incognito Mode is ON",listening:"Listening... Speak now",hist:"🕒 History",histTitle:"🕒 Your History",clear:"Clear All History",noHist:"No History Yet",incHist:"Incognito ma History save thati nathi"},
-'gu':{title:"તમારી ભાષામાં શોધો",ph:"શોધો...",search:"શોધો",open:"🕶️ નવો ઇન્કોગ્નિટો ટેબ",close:"❌ ઇન્કોગ્નિટો બંધ કરો",on:"ઇન્કોગ્નિટો મોડ ચાલુ છે - હવે તમારી સર્ચ હિસ્ટ્રી સેવ થશે નહીં",off:"ઇન્કોગ્નિટો મોડ બંધ થયો છે - હવે તમારી સર્ચ હિસ્ટ્રી સેવ થશે",onStatus:"ઇન્કોગ્નિટો મોડ ચાલુ છે",listening:"સાંભળું છું... બોલો",hist:"🕒 હિસ્ટ્રી",histTitle:"🕒 તમારી હિસ્ટ્રી",clear:"બધી હિસ્ટ્રી સાફ કરો",noHist:"હજી કોઈ હિસ્ટ્રી નથી",incHist:"ઇન્કોગ્નિટો માં હિસ્ટ્રી સેવ થતી નથી"},
-'hi':{title:"अपनी भाषा में खोजें",ph:"खोजें...",search:"खोजें",open:"🕶️ नया इन्कॉग्निटो टैब",close:"❌ इन्कॉग्निटो बंद करें",on:"इन्कॉग्निटो मोड चालू है - अब आपकी सर्च हिस्ट्री सेव नहीं होगी",off:"इन्कॉग्निटो मोड बंद हो गया है - अब आपकी सर्च हिस्ट्री सेव होगी",onStatus:"इन्कॉग्निटो मोड चालू है",listening:"सुन रहा हूँ... बोलिए",hist:"🕒 हिस्ट्री",histTitle:"🕒 आपकी हिस्ट्री",clear:"सारी हिस्ट्री साफ करें",noHist:"अभी कोई हिस्ट्री नहीं है",incHist:"इन्कॉग्निटो में हिस्ट्री सेव नहीं होती"},
-'mr':{title:"तुमच्या भाषेत शोधा",ph:"शोधा...",search:"शोधा",open:"🕶️ नवीन इन्कॉग्निटो टॅब",close:"❌ इन्कॉग्निटो बंद करा",on:"इन्कॉग्निटो मोड चालू आहे - आता तुमची सर्च हिस्ट्री सेव होणार नाही",off:"इन्कॉग्निटो मोड बंद झाला आहे - आता तुमची सर्च हिस्ट्री सेव होईल",onStatus:"इन्कॉग्निटो मोड चालू आहे",listening:"ऐकतोय... बोला",hist:"🕒 हिस्ट्री",histTitle:"🕒 तुमची हिस्ट्री",clear:"सगळी हिस्ट्री साफ करा",noHist:"अजून कोणतीही हिस्ट्री नाही",incHist:"इन्कॉग्निटो मध्ये हिस्ट्री सेव होत नाही"}
+'en':{title:"Search in Your Language",ph:"Search...",search:"Search",open:"🕶️ New Incognito Tab",close:"❌ Close Incognito",on:"Incognito Mode ON - Your search history will not be saved",off:"Incognito Mode OFF - Now your search history will be saved",onStatus:"Incognito Mode is ON",listening:"Listening... Speak now",hist:"🕒 History",histTitle:"🕒 Your History",clear:"Clear All History",noHist:"No History Yet",incHist:"Incognito ma History save thati nathi",back:"⬅ Back",results:"Results for: "},
+'gu':{title:"તમારી ભાષામાં શોધો",ph:"શોધો...",search:"શોધો",open:"🕶️ નવો ઇન્કોગ્નિટો ટેબ",close:"❌ ઇન્કોગ્નિટો બંધ કરો",on:"ઇન્કોગ્નિટો મોડ ચાલુ છે - હવે તમારી સર્ચ હિસ્ટ્રી સેવ થશે નહીં",off:"ઇન્કોગ્નિટો મોડ બંધ થયો છે - હવે તમારી સર્ચ હિસ્ટ્રી સેવ થશે",onStatus:"ઇન્કોગ્નિટો મોડ ચાલુ છે",listening:"સાંભળું છું... બોલો",hist:"🕒 હિસ્ટ્રી",histTitle:"🕒 તમારી હિસ્ટ્રી",clear:"બધી હિસ્ટ્રી સાફ કરો",noHist:"હજી કોઈ હિસ્ટ્રી નથી",incHist:"ઇન્કોગ્નિટો માં હિસ્ટ્રી સેવ થતી નથી",back:"⬅ પાછા",results:"પરિણામ: "},
+'hi':{title:"अपनी भाषा में खोजें",ph:"खोजें...",search:"खोजें",open:"🕶️ नया इन्कॉग्निटो टैब",close:"❌ इन्कॉग्निटो बंद करें",on:"इन्कॉग्निटो मोड चालू है - अब आपकी सर्च हिस्ट्री सेव नहीं होगी",off:"इन्कॉग्निटो मोड बंद हो गया है - अब आपकी सर्च हिस्ट्री सेव होगी",onStatus:"इन्कॉग्निटो मोड चालू है",listening:"सुन रहा हूँ... बोलिए",hist:"🕒 हिस्ट्री",histTitle:"🕒 आपकी हिस्ट्री",clear:"सारी हिस्ट्री साफ करें",noHist:"अभी कोई हिस्ट्री नहीं है",incHist:"इन्कॉग्निटो में हिस्ट्री सेव नहीं होती",back:"⬅ वापस",results:"परिणाम: "},
+'mr':{title:"तुमच्या भाषेत शोधा",ph:"शोधा...",search:"शोधा",open:"🕶️ नवीन इन्कॉग्निटो टॅब",close:"❌ इन्कॉग्निटो बंद करा",on:"इन्कॉग्निटो मोड चालू आहे - आता तुमची सर्च हिस्ट्री सेव होणार नाही",off:"इन्कॉग्निटो मोड बंद झाला आहे - आता तुमची सर्च हिस्ट्री सेव होईल",onStatus:"इन्कॉग्निटो मोड चालू आहे",listening:"ऐकतोय... बोला",hist:"🕒 हिस्ट्री",histTitle:"🕒 तुमची हिस्ट्री",clear:"सगळी हिस्ट्री साफ करा",noHist:"अजून कोणतीही हिस्ट्री नाही",incHist:"इन्कॉग्निटो मध्ये हिस्ट्री सेव होत नाही",back:"⬅ मागे",results:"निकाल: "}
 };
 function getLang(){return document.getElementById('lang').value}
 function getT(){return T[getLang()]||T['en']}
@@ -77,6 +88,7 @@ function changeLang(){
   document.getElementById('historyBtn').innerText=t.hist;
   document.getElementById('histTitle').innerText=t.histTitle;
   document.getElementById('clearBtn').innerText=t.clear;
+  document.getElementById('backBtn').innerText=t.back;
   if(window.location.search.includes('incognito=1')) document.getElementById('status').innerText=t.onStatus;
 }
 function isIncognito(){return window.location.search.includes('incognito=1')}
@@ -89,13 +101,24 @@ function doSearch(){
     h=h.slice(0,50);
     localStorage.setItem('jcm_history',JSON.stringify(h));
   }
-  window.open('https://www.google.com/search?q='+encodeURIComponent(q),'_blank');
+  // HAVE GOOGLE MA NAI JAY - SITE MA J RESULT AVSE
+  let t=getT();
+  document.getElementById('resultText').innerText = t.results + q;
+  document.getElementById('resultBox').style.display='block';
+  document.getElementById('mainCard').style.display='none';
+  // Bing vaparyu che kem ke Google iframe ma khulva nathi detu
+  document.getElementById('resultFrame').src = 'https://www.bing.com/search?q=' + encodeURIComponent(q);
+  window.scrollTo(0,0);
+}
+function goBack(){
+  document.getElementById('resultBox').style.display='none';
+  document.getElementById('mainCard').style.display='block';
+  document.getElementById('resultFrame').src='';
 }
 function toggleHistory(){
   let box=document.getElementById('historyBox');
   if(box.style.display=='block'){box.style.display='none';return;}
-  box.style.display='block';
-  renderHistory();
+  box.style.display='block'; renderHistory();
 }
 function renderHistory(){
   let t=getT(); let list=document.getElementById('histList');
@@ -106,24 +129,20 @@ function renderHistory(){
 }
 function searchAgain(i){
   let h=JSON.parse(localStorage.getItem('jcm_history')||'[]');
-  document.getElementById('searchBox').value=h[i].text;
-  doSearch();
+  document.getElementById('searchBox').value=h[i].text; doSearch();
 }
 function deleteOne(i){
   let h=JSON.parse(localStorage.getItem('jcm_history')||'[]');
   h.splice(i,1); localStorage.setItem('jcm_history',JSON.stringify(h)); renderHistory();
 }
-function clearHistory(){
-  localStorage.removeItem('jcm_history'); renderHistory();
-}
+function clearHistory(){localStorage.removeItem('jcm_history'); renderHistory();}
 function openIncognito(){
   let t=getT(); alert(t.on);
   let base=window.location.href.split('?')[0];
   window.open(base+'?incognito=1&lang='+getLang(),'_blank');
 }
 function closeIncognito(){
-  let t=getT(); alert(t.off);
-  window.close();
+  let t=getT(); alert(t.off); window.close();
   setTimeout(function(){window.location.href=window.location.href.split('?')[0]},500);
 }
 function startVoice(){
@@ -135,10 +154,7 @@ function startVoice(){
   rec.lang = langMap[getLang()] || 'en-IN';
   document.getElementById('status').innerText = t.listening;
   rec.start();
-  rec.onresult = function(e){
-    document.getElementById('searchBox').value = e.results[0][0].transcript;
-    doSearch();
-  };
+  rec.onresult = function(e){ document.getElementById('searchBox').value = e.results[0][0].transcript; doSearch(); };
 }
 function showImage(e){
   let file = e.target.files[0]; if(!file) return;
@@ -162,7 +178,6 @@ window.onload=function(){
     document.getElementById('incognitoNote').style.display='none';
   }
   changeLang();
-  // Enter dabavso to pan search thase
   document.getElementById('searchBox').addEventListener('keypress',function(e){if(e.key=='Enter') doSearch();});
 };
 </script>
