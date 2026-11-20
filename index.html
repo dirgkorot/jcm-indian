@@ -5,73 +5,107 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JCM Indian Search</title>
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#1a1a2e">
+<meta name="theme-color" content="#ffffff">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-body{min-height:100vh;margin:0;padding:20px;font-family:Arial,sans-serif;text-align:center;color:#fff;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 40%,#0f3460 70%,#533483 100%);background-attachment:fixed}
-body.incognito{background:linear-gradient(135deg,#000000 0%,#232526 50%,#414345 100%)!important}
-.card{background:rgba(255,255,255,0.12);backdrop-filter:blur(10px);border-radius:20px;padding:25px;max-width:520px;margin:30px auto;box-shadow:0 10px 30px rgba(0,0,0,0.4)}
-input{width:75%;max-width:350px;padding:13px;font-size:16px;border-radius:25px;border:none;outline:none}
-button{padding:11px 18px;margin:8px 4px;font-size:15px;border:none;border-radius:20px;cursor:pointer;background:#fff;color:#111;font-weight:bold}
-button.closeBtn{background:#ff3b30;color:white}
-button.iconBtn{background:#ffcc00;font-size:18px}
-button.histBtn{background:#00c853;color:white}
-select{padding:8px;border-radius:10px;background:white}
-.top{display:flex;justify-content:space-between;align-items:center}
-#preview{max-width:280px;margin-top:12px;border-radius:12px;display:none}
-#voiceCam{display:block}
-#historyBox{background:rgba(0,0,0,0.4);border-radius:15px;padding:15px;margin-top:15px;text-align:left;display:none}
-.histItem{display:flex;justify-content:space-between;background:rgba(255,255,255,0.15);padding:8px 12px;border-radius:10px;margin:5px 0;cursor:pointer}
-.histItem span.del{color:#ff5252;font-weight:bold}
-/* RESULT - HAVE SITE MA J DEKHASE */
-#resultBox{display:none;max-width:900px;margin:20px auto;background:white;border-radius:15px;overflow:hidden}
-#resultFrame{width:100%;height:70vh;border:none}
-#backBtn{background:#ffcc00;color:#111}
+*{box-sizing:border-box;font-family:'Inter',Arial,sans-serif}
+body{margin:0;background:#ffffff;color:#202124;min-height:100vh}
+body.incognito{background:#202124;color:#e8eaed}
+body.incognito .header, body.incognito .searchWrap{background:#202124}
+body.incognito .searchBox{border-color:#5f6368;background:#303134;color:white}
+body.incognito .searchBox input{background:#303134;color:white}
+body.incognito .resultTop{background:#303134;color:white}
+.header{display:flex;justify-content:space-between;align-items:center;padding:14px 24px}
+.logo{font-size:22px;font-weight:700;letter-spacing:-0.5px}
+.logo span:nth-child(1){color:#4285F4}.logo span:nth-child(2){color:#EA4335}.logo span:nth-child(3){color:#FBBC05}.logo span:nth-child(4){color:#4285F4}.logo span:nth-child(5){color:#34A853}.logo span:nth-child(6){color:#EA4335}
+.topRight{display:flex;gap:10px;align-items:center}
+select{padding:8px 12px;border:1px solid #dadce0;border-radius:8px;background:white;font-size:13px;cursor:pointer}
+.pillBtn{padding:9px 16px;border-radius:20px;border:1px solid #dadce0;background:white;font-size:13px;font-weight:500;cursor:pointer}
+.pillBtn.primary{background:#1a73e8;color:white;border-color:#1a73e8}
+.pillBtn.danger{background:#d93025;color:white;border-color:#d93025}
+.hero{max-width:680px;margin:60px auto 0;text-align:center;padding:0 20px}
+.heroLogo{font-size:64px;font-weight:700;letter-spacing:-2px;margin:0}
+.heroLogo span:nth-child(1){color:#4285F4}.heroLogo span:nth-child(2){color:#EA4335}.heroLogo span:nth-child(3){color:#FBBC05}.heroLogo span:nth-child(4){color:#4285F4}.heroLogo span:nth-child(5){color:#34A853}.heroLogo span:nth-child(6){color:#EA4335}
+.hero p{color:#4d5156;font-size:15px;margin:12px 0 28px}
+body.incognito .hero p{color:#bdc1c6}
+.searchWrap{display:flex;align-items:center;gap:8px;max-width:640px;margin:0 auto;border:1px solid #dfe1e5;border-radius:28px;padding:6px 8px 6px 18px;box-shadow:0 2px 8px rgba(32,33,36,0.12);background:white}
+.searchWrap input{flex:1;border:none;outline:none;font-size:16px;padding:10px 0}
+.iconBtn{width:40px;height:40px;border-radius:50%;border:none;background:transparent;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center}
+.iconBtn:hover{background:#f1f3f4}
+body.incognito .iconBtn:hover{background:#3c4043}
+.actions{margin:24px 0;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.btn{padding:10px 20px;border-radius:6px;border:1px solid #f8f9fa;background:#f8f9fa;font-size:14px;cursor:pointer;color:#3c4043}
+.btn:hover{border-color:#dadce0;box-shadow:0 1px 3px rgba(0,0,0,0.1)}
+.btn.blue{background:#1a73e8;color:white;border-color:#1a73e8}
+.btn.green{background:#188038;color:white;border-color:#188038}
+.btn.red{background:#d93025;color:white;border-color:#d93025}
+#status{font-size:13px;color:#188038;margin-top:10px}
+#preview{max-width:220px;border-radius:12px;margin:12px auto;display:none}
+#historyBox{max-width:640px;margin:20px auto;text-align:left;background:#f8f9fa;border-radius:12px;padding:16px;display:none}
+body.incognito #historyBox{background:#303134}
+.histItem{display:flex;justify-content:space-between;padding:10px 12px;background:white;border-radius:8px;margin:6px 0;cursor:pointer;border:1px solid #e8eaed}
+body.incognito .histItem{background:#202124;border-color:#5f6368}
+.histItem span.del{color:#d93025}
+#resultBox{display:none;max-width:900px;margin:0 auto;padding:0 16px 30px}
+.resultTop{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:#f8f9fa;border-radius:12px 12px 0 0;border:1px solid #dadce0}
+#resultFrame{width:100%;height:72vh;border:1px solid #dadce0;border-top:none;border-radius:0 0 12px 12px}
+.footer{position:fixed;bottom:0;left:0;right:0;padding:14px;text-align:center;font-size:12px;color:#70757a;background:#f2f2f2;border-top:1px solid #dadce0}
+body.incognito .footer{background:#171717;color:#9aa0a6;border-color:#3c4043}
+@media(max-width:600px){.heroLogo{font-size:44px}.hero{margin-top:30px}.header{padding:12px}}
 </style>
 </head>
 <body>
-<div class="top">
-<h2>🔍 JCM Indian</h2>
+<div class="header">
+<div class="logo"><span>J</span><span>C</span><span>M</span> <span>I</span><span>n</span><span>d</span><span>i</span><span>a</span><span>n</span></div>
+<div class="topRight">
 <select id="lang" onchange="changeLang()">
 <option value="en">English</option><option value="as">অসমীয়া</option><option value="bn">বাংলা</option><option value="brx">बोड़ो</option><option value="doi">डोगरी</option><option value="gu">ગુજરાતી</option><option value="hi">हिन्दी</option><option value="kn">ಕನ್ನಡ</option><option value="ks">کٲشُر</option><option value="gom">कोंकणी</option><option value="mai">मैथिली</option><option value="ml">മലയാളം</option><option value="mni">মণিপুরী</option><option value="mr">मराठी</option><option value="ne">नेपाली</option><option value="or">ଓଡ଼ିଆ</option><option value="pa">ਪੰਜਾਬੀ</option><option value="sa">संस्कृतम्</option><option value="sat">ᱥᱟᱱᱛᱟᱲᱤ</option><option value="sd">سنڌي</option><option value="ta">தமிழ்</option><option value="te">తెలుగు</option><option value="ur">اردو</option>
 </select>
+<button id="openBtn" class="pillBtn primary" onclick="openIncognito()">🕶️ New Incognito Tab</button>
+<button id="closeBtn" class="pillBtn danger" onclick="closeIncognito()" style="display:none">❌ Close Incognito</button>
+</div>
 </div>
 
-<div class="card" id="mainCard">
-<h1 id="title">Search in Your Language</h1>
+<div class="hero" id="mainCard">
+<h1 class="heroLogo"><span>J</span><span>C</span><span>M</span> <span>I</span><span>n</span><span>d</span><span>i</span><span>a</span><span>n</span></h1>
+<p id="title">Search in Your Language</p>
+
+<div class="searchWrap searchBox">
+<span style="font-size:18px;opacity:0.6">🔍</span>
 <input id="searchBox" placeholder="Search...">
-<div id="voiceCam">
-<button class="iconBtn" onclick="startVoice()">🎤</button>
-<button class="iconBtn" onclick="document.getElementById('cam').click()">📷</button>
+<button class="iconBtn" onclick="startVoice()" title="Voice Search">🎙️</button>
+<button class="iconBtn" onclick="document.getElementById('cam').click()" title="Search by Image">📸</button>
 <input type="file" id="cam" accept="image/*" capture="environment" style="display:none" onchange="showImage(event)">
-<br><img id="preview">
 </div>
-<br>
-<button id="searchBtn" onclick="doSearch()">Search</button>
-<button id="historyBtn" class="histBtn" onclick="toggleHistory()">🕒 History</button>
-<br>
-<button id="openBtn" onclick="openIncognito()">🕶️ New Incognito Tab</button>
-<button id="closeBtn" class="closeBtn" onclick="closeIncognito()" style="display:none">❌ Close Incognito</button>
+<img id="preview">
+
+<div class="actions">
+<button id="searchBtn" class="btn blue" onclick="doSearch()">Search</button>
+<button id="historyBtn" class="btn green" onclick="toggleHistory()">🕒 History</button>
+</div>
 <p id="status"></p>
-<p id="incognitoNote" style="display:none;font-size:13px;opacity:0.8">🔒 Incognito Mode ON che</p>
+<p id="incognitoNote" style="display:none;font-size:13px">🔒 Incognito Mode ON - History will not be saved</p>
+
 <div id="historyBox">
-<h3 id="histTitle" style="margin:0">🕒 Your History</h3>
+<h3 id="histTitle" style="margin:0 0 10px">🕒 Your History</h3>
 <div id="histList"></div>
-<button onclick="clearHistory()" style="background:#ff3b30;color:white" id="clearBtn">Clear All History</button>
+<button onclick="clearHistory()" class="btn red" id="clearBtn">Clear All History</button>
 </div>
 </div>
 
-<!-- HAVE RESULT AHIYA J AVSE - GOOGLE MA NAI JAY -->
 <div id="resultBox">
-<div style="padding:10px;background:#f1f1f1;display:flex;justify-content:space-between;align-items:center">
-<span id="resultText" style="color:#111;font-weight:bold">Results</span>
-<button id="backBtn" onclick="goBack()">⬅ Back</button>
+<div class="resultTop">
+<span id="resultText" style="font-weight:600;font-size:14px">Results</span>
+<button id="backBtn" class="btn" onclick="goBack()">⬅ Back</button>
 </div>
 <iframe id="resultFrame" src=""></iframe>
 </div>
 
+<div class="footer">JCM Indian Search • 22 Indian Languages • Privacy First • Made in India 🇮🇳</div>
+
 <script>
 let T = {
-'en':{title:"Search in Your Language",ph:"Search...",search:"Search",open:"🕶️ New Incognito Tab",close:"❌ Close Incognito",on:"Incognito Mode ON - Your search history will not be saved",off:"Incognito Mode OFF - Now your search history will be saved",onStatus:"Incognito Mode is ON",listening:"Listening... Speak now",hist:"🕒 History",histTitle:"🕒 Your History",clear:"Clear All History",noHist:"No History Yet",incHist:"Incognito ma History save thati nathi",back:"⬅ Back",results:"Results for: "},
+'en':{title:"Search in Your Language",ph:"Search...",search:"Search",open:"🕶️ New Incognito Tab",close:"❌ Close Incognito",on:"Incognito Mode ON - Your search history will not be saved",off:"Incognito Mode OFF - Now your search history will be saved",onStatus:"Incognito Mode is ON",listening:"Listening... Speak now",hist:"🕒 History",histTitle:"🕒 Your History",clear:"Clear All History",noHist:"No History Yet",incHist:"History is not saved in Incognito",back:"⬅ Back",results:"Results for: "},
 'gu':{title:"તમારી ભાષામાં શોધો",ph:"શોધો...",search:"શોધો",open:"🕶️ નવો ઇન્કોગ્નિટો ટેબ",close:"❌ ઇન્કોગ્નિટો બંધ કરો",on:"ઇન્કોગ્નિટો મોડ ચાલુ છે - હવે તમારી સર્ચ હિસ્ટ્રી સેવ થશે નહીં",off:"ઇન્કોગ્નિટો મોડ બંધ થયો છે - હવે તમારી સર્ચ હિસ્ટ્રી સેવ થશે",onStatus:"ઇન્કોગ્નિટો મોડ ચાલુ છે",listening:"સાંભળું છું... બોલો",hist:"🕒 હિસ્ટ્રી",histTitle:"🕒 તમારી હિસ્ટ્રી",clear:"બધી હિસ્ટ્રી સાફ કરો",noHist:"હજી કોઈ હિસ્ટ્રી નથી",incHist:"ઇન્કોગ્નિટો માં હિસ્ટ્રી સેવ થતી નથી",back:"⬅ પાછા",results:"પરિણામ: "},
 'hi':{title:"अपनी भाषा में खोजें",ph:"खोजें...",search:"खोजें",open:"🕶️ नया इन्कॉग्निटो टैब",close:"❌ इन्कॉग्निटो बंद करें",on:"इन्कॉग्निटो मोड चालू है - अब आपकी सर्च हिस्ट्री सेव नहीं होगी",off:"इन्कॉग्निटो मोड बंद हो गया है - अब आपकी सर्च हिस्ट्री सेव होगी",onStatus:"इन्कॉग्निटो मोड चालू है",listening:"सुन रहा हूँ... बोलिए",hist:"🕒 हिस्ट्री",histTitle:"🕒 आपकी हिस्ट्री",clear:"सारी हिस्ट्री साफ करें",noHist:"अभी कोई हिस्ट्री नहीं है",incHist:"इन्कॉग्निटो में हिस्ट्री सेव नहीं होती",back:"⬅ वापस",results:"परिणाम: "},
 'mr':{title:"तुमच्या भाषेत शोधा",ph:"शोधा...",search:"शोधा",open:"🕶️ नवीन इन्कॉग्निटो टॅब",close:"❌ इन्कॉग्निटो बंद करा",on:"इन्कॉग्निटो मोड चालू आहे - आता तुमची सर्च हिस्ट्री सेव होणार नाही",off:"इन्कॉग्निटो मोड बंद झाला आहे - आता तुमची सर्च हिस्ट्री सेव होईल",onStatus:"इन्कॉग्निटो मोड चालू आहे",listening:"ऐकतोय... बोला",hist:"🕒 हिस्ट्री",histTitle:"🕒 तुमची हिस्ट्री",clear:"सगळी हिस्ट्री साफ करा",noHist:"अजून कोणतीही हिस्ट्री नाही",incHist:"इन्कॉग्निटो मध्ये हिस्ट्री सेव होत नाही",back:"⬅ मागे",results:"निकाल: "}
@@ -93,78 +127,42 @@ function changeLang(){
 }
 function isIncognito(){return window.location.search.includes('incognito=1')}
 function doSearch(){
-  let q=document.getElementById('searchBox').value;
-  if(!q) return;
+  let q=document.getElementById('searchBox').value; if(!q) return;
   if(!isIncognito()){
     let h=JSON.parse(localStorage.getItem('jcm_history')||'[]');
-    h.unshift({text:q,time:new Date().toLocaleString()});
-    h=h.slice(0,50);
-    localStorage.setItem('jcm_history',JSON.stringify(h));
+    h.unshift({text:q}); h=h.slice(0,50); localStorage.setItem('jcm_history',JSON.stringify(h));
   }
-  // HAVE GOOGLE MA NAI JAY - SITE MA J RESULT AVSE
   let t=getT();
-  document.getElementById('resultText').innerText = t.results + q;
+  document.getElementById('resultText').innerText=t.results+q;
   document.getElementById('resultBox').style.display='block';
   document.getElementById('mainCard').style.display='none';
-  // Bing vaparyu che kem ke Google iframe ma khulva nathi detu
-  document.getElementById('resultFrame').src = 'https://www.bing.com/search?q=' + encodeURIComponent(q);
+  document.getElementById('resultFrame').src='https://www.bing.com/search?q='+encodeURIComponent(q);
   window.scrollTo(0,0);
 }
-function goBack(){
-  document.getElementById('resultBox').style.display='none';
-  document.getElementById('mainCard').style.display='block';
-  document.getElementById('resultFrame').src='';
-}
-function toggleHistory(){
-  let box=document.getElementById('historyBox');
-  if(box.style.display=='block'){box.style.display='none';return;}
-  box.style.display='block'; renderHistory();
-}
+function goBack(){document.getElementById('resultBox').style.display='none';document.getElementById('mainCard').style.display='block';document.getElementById('resultFrame').src='';}
+function toggleHistory(){let b=document.getElementById('historyBox'); if(b.style.display=='block'){b.style.display='none';return;} b.style.display='block'; renderHistory();}
 function renderHistory(){
   let t=getT(); let list=document.getElementById('histList');
   if(isIncognito()){list.innerHTML='<p>'+t.incHist+'</p>';return;}
   let h=JSON.parse(localStorage.getItem('jcm_history')||'[]');
   if(h.length==0){list.innerHTML='<p>'+t.noHist+'</p>';return;}
-  list.innerHTML=h.map((item,i)=>'<div class="histItem"><span onclick="searchAgain('+i+')">🔍 '+item.text+'</span><span class="del" onclick="deleteOne('+i+')">✖</span></div>').join('');
+  list.innerHTML=h.map((it,i)=>'<div class="histItem"><span onclick="searchAgain('+i+')">🔍 '+it.text+'</span><span class="del" onclick="deleteOne('+i+')">✖</span></div>').join('');
 }
-function searchAgain(i){
-  let h=JSON.parse(localStorage.getItem('jcm_history')||'[]');
-  document.getElementById('searchBox').value=h[i].text; doSearch();
-}
-function deleteOne(i){
-  let h=JSON.parse(localStorage.getItem('jcm_history')||'[]');
-  h.splice(i,1); localStorage.setItem('jcm_history',JSON.stringify(h)); renderHistory();
-}
+function searchAgain(i){let h=JSON.parse(localStorage.getItem('jcm_history')||'[]'); document.getElementById('searchBox').value=h[i].text; doSearch();}
+function deleteOne(i){let h=JSON.parse(localStorage.getItem('jcm_history')||'[]'); h.splice(i,1); localStorage.setItem('jcm_history',JSON.stringify(h)); renderHistory();}
 function clearHistory(){localStorage.removeItem('jcm_history'); renderHistory();}
-function openIncognito(){
-  let t=getT(); alert(t.on);
-  let base=window.location.href.split('?')[0];
-  window.open(base+'?incognito=1&lang='+getLang(),'_blank');
-}
-function closeIncognito(){
-  let t=getT(); alert(t.off); window.close();
-  setTimeout(function(){window.location.href=window.location.href.split('?')[0]},500);
-}
+function openIncognito(){let t=getT(); alert(t.on); let base=window.location.href.split('?')[0]; window.open(base+'?incognito=1&lang='+getLang(),'_blank');}
+function closeIncognito(){let t=getT(); alert(t.off); window.close(); setTimeout(function(){window.location.href=window.location.href.split('?')[0]},500);}
 function startVoice(){
-  let t=getT();
-  let SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if(!SR){ alert("Voice not supported"); return; }
-  let rec = new SR();
-  let langMap = {'gu':'gu-IN','hi':'hi-IN','en':'en-IN','mr':'mr-IN','ta':'ta-IN','te':'te-IN','bn':'bn-IN','pa':'pa-IN','ml':'ml-IN','kn':'kn-IN','or':'or-IN','as':'as-IN','ur':'ur-IN','ne':'ne-NP'};
-  rec.lang = langMap[getLang()] || 'en-IN';
-  document.getElementById('status').innerText = t.listening;
-  rec.start();
-  rec.onresult = function(e){ document.getElementById('searchBox').value = e.results[0][0].transcript; doSearch(); };
+  let t=getT(); let SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){alert("Voice not supported");return;}
+  let rec=new SR(); let map={'gu':'gu-IN','hi':'hi-IN','en':'en-IN','mr':'mr-IN','ta':'ta-IN','te':'te-IN','bn':'bn-IN','pa':'pa-IN','ml':'ml-IN','kn':'kn-IN','or':'or-IN','as':'as-IN','ur':'ur-IN','ne':'ne-NP'};
+  rec.lang=map[getLang()]||'en-IN'; document.getElementById('status').innerText=t.listening; rec.start();
+  rec.onresult=function(e){document.getElementById('searchBox').value=e.results[0][0].transcript; doSearch();}
 }
-function showImage(e){
-  let file = e.target.files[0]; if(!file) return;
-  let img = document.getElementById('preview');
-  img.src = URL.createObjectURL(file); img.style.display='block';
-  if(confirm("Photo ne Google Lens ma kholvu che?")) window.open('https://lens.google.com/','_blank');
-}
+function showImage(e){let f=e.target.files[0]; if(!f) return; let img=document.getElementById('preview'); img.src=URL.createObjectURL(f); img.style.display='block'; if(confirm("Photo ne Google Lens ma kholvu che?")) window.open('https://lens.google.com/','_blank');}
 window.onload=function(){
   let p=new URLSearchParams(window.location.search);
-  document.getElementById('voiceCam').style.display='block';
   if(p.get('incognito')=='1'){
     document.body.classList.add('incognito');
     document.getElementById('openBtn').style.display='none';
@@ -172,10 +170,6 @@ window.onload=function(){
     document.getElementById('incognitoNote').style.display='block';
     document.getElementById('historyBtn').style.display='none';
     if(p.get('lang')) document.getElementById('lang').value=p.get('lang');
-  } else {
-    document.getElementById('closeBtn').style.display='none';
-    document.getElementById('openBtn').style.display='inline-block';
-    document.getElementById('incognitoNote').style.display='none';
   }
   changeLang();
   document.getElementById('searchBox').addEventListener('keypress',function(e){if(e.key=='Enter') doSearch();});
